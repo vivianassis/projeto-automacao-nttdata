@@ -3,9 +3,6 @@ package simpletests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.time.Duration;
 
 
 public class LoginTest extends BaseTest {
@@ -76,33 +73,25 @@ public class LoginTest extends BaseTest {
                     message.toLowerCase());
         }
 
-//        @Test
-//        public void ProblemLogin () {
-//            driver.findElement(By.id("user-name")).sendKeys("problem_user");
-//            driver.findElement(By.name("password")).sendKeys("secret_sauce");
-//            driver.findElement(By.id("login-button")).click();
-//
-//            //Inserir Validação
-//            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
-//
-//            Assertions.assertEquals(
-//                    "epic sadface: username and password do not match any user in this service",
-//                    message.toLowerCase());
-//        }
+        @Test
+        public void ProblemLogin () {
+            driver.findElement(By.id("user-name")).sendKeys("problem_user");
+            driver.findElement(By.name("password")).sendKeys("secret_sauce");
+            driver.findElement(By.id("login-button")).click();
 
-//        @Test
-//        public void PerformanceLogin() {
-//            driver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
-//            driver.findElement(By.name("password")).sendKeys("secret_sauce");
-//            driver.findElement(By.id("login-button")).click();
-//
-//            //Inserir Validação
-//            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
-//
-//            Assertions.assertEquals(
-//                    "epic sadface: username and password do not match any user in this service",
-//                    message.toLowerCase());
-//        }
+            //Inserir Validação
+            String imagem1 = driver.findElement(By.xpath("//*[@id=\"item_1_img_link\"]/img")).getAttribute("src");
+            String imagem2 = driver.findElement(By.xpath("//*[@id=\"item_2_img_link\"]/img")).getAttribute("src");
+
+//            Assertions.assertNotEquals(imagem1, imagem2);
+//            -- O certo é serem diferentes, mas como estamos validando o login com problema,
+//            vamos pedir que sejam iguais
+
+            Assertions.assertEquals(imagem1, imagem2);
+
+            System.out.println("Resultado: \n" + imagem1 + "\nEstá igual a: \n" + imagem2 + "\nLogo, a página está com problema.");  //-- opcional (apoio ao teste)
+        }
+
     }
 
 
