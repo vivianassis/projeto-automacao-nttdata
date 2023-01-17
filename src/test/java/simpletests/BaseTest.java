@@ -1,9 +1,8 @@
 package simpletests;
 
-import io.cucumber.java.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -22,9 +21,15 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://www.saucedemo.com/");
     }
-
     @AfterEach
     public void quitBronwser() {
         driver.quit();
+    }
+
+    //método genérico usado com frequencia em classes filhas
+    public void login(String user, String password){
+        driver.findElement(By.id("user-name")).sendKeys(user);
+        driver.findElement(By.name("password")).sendKeys(password);
+        driver.findElement(By.id("login-button")).click();
     }
 }
