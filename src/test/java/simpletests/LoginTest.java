@@ -3,6 +3,9 @@ package simpletests;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.time.Duration;
 
 
 public class LoginTest extends BaseTest {
@@ -22,7 +25,7 @@ public class LoginTest extends BaseTest {
     public void EmptyUsername() {
 
         driver.findElement(By.id("user-name")).sendKeys("");
-        driver.findElement(By.name("password")).sendKeys("1234");
+        driver.findElement(By.name("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
         String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
@@ -35,7 +38,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void EmptyPassword() {
 
-        driver.findElement(By.id("user-name")).sendKeys("user");
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.name("password")).sendKeys("");
         driver.findElement(By.id("login-button")).click();
 
@@ -49,57 +52,57 @@ public class LoginTest extends BaseTest {
     @Test
     public void CommonLogin() {
 
-        driver.findElement(By.id("user-name")).sendKeys("usuário padrão");
-        driver.findElement(By.name("password")).sendKeys("molho secreto");
+        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.name("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
+       // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));  -- CASO O TESTE FALHE POR ESPERA DO NAVEGADOR
 
-        String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
+        String cabecalho = driver.findElement(By.className("title")).getText();
+        boolean valida = cabecalho.contains("PRODUCTS");
 
-        Assertions.assertEquals(
-                "epic sadface: username and password do not match any user in this service",
-                message.toLowerCase());
+        Assertions.assertTrue(valida);
     }
 
         @Test
         public void BlockLogin () {
-            driver.findElement(By.id("user-name")).sendKeys("bloqueado_out_user");
-            driver.findElement(By.name("password")).sendKeys("molho secreto");
+            driver.findElement(By.id("user-name")).sendKeys("locked_out_user");
+            driver.findElement(By.name("password")).sendKeys("secret_sauce");
             driver.findElement(By.id("login-button")).click();
 
             String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
 
             Assertions.assertEquals(
-                    "epic sadface: username and password do not match any user in this service",
+                    "epic sadface: sorry, this user has been locked out.",
                     message.toLowerCase());
         }
 
-        @Test
-        public void ProblemLogin () {
-            driver.findElement(By.id("user-name")).sendKeys("problem_user");
-            driver.findElement(By.name("password")).sendKeys("molho secreto");
-            driver.findElement(By.id("login-button")).click();
+//        @Test
+//        public void ProblemLogin () {
+//            driver.findElement(By.id("user-name")).sendKeys("problem_user");
+//            driver.findElement(By.name("password")).sendKeys("secret_sauce");
+//            driver.findElement(By.id("login-button")).click();
+//
+//            //Inserir Validação
+//            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
+//
+//            Assertions.assertEquals(
+//                    "epic sadface: username and password do not match any user in this service",
+//                    message.toLowerCase());
+//        }
 
-            //Inserir Validação
-            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
-
-            Assertions.assertEquals(
-                    "epic sadface: username and password do not match any user in this service",
-                    message.toLowerCase());
-        }
-
-        @Test
-        public void PerformanceLogin() {
-            driver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
-            driver.findElement(By.name("password")).sendKeys("molho secreto");
-            driver.findElement(By.id("login-button")).click();
-
-            //Inserir Validação
-            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
-
-            Assertions.assertEquals(
-                    "epic sadface: username and password do not match any user in this service",
-                    message.toLowerCase());
-        }
+//        @Test
+//        public void PerformanceLogin() {
+//            driver.findElement(By.id("user-name")).sendKeys("performance_glitch_user");
+//            driver.findElement(By.name("password")).sendKeys("secret_sauce");
+//            driver.findElement(By.id("login-button")).click();
+//
+//            //Inserir Validação
+//            String message = driver.findElement(By.cssSelector(".error-message-container")).getText();
+//
+//            Assertions.assertEquals(
+//                    "epic sadface: username and password do not match any user in this service",
+//                    message.toLowerCase());
+//        }
     }
 
 
